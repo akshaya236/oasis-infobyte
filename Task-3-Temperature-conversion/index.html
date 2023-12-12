@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Oasis infoByte | Temperature Converter Application</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url('https://st3.depositphotos.com/1277251/32001/i/450/depositphotos_320017074-stock-photo-thermometer-with-high-temperature-on.jpg');
+      background-size: contain;
+      background-position: cover;
+    }
+
+    #converter-container {
+      background-color:rgb(219, 47, 12);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    label {
+      font-size: 1.2em;
+      color: #333;
+      margin-right: 10px;
+    }
+
+    #temperatureInput {
+      padding: 10px;
+      font-size: 16px;
+      width: 150px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #unitSelect {
+      padding: 10px;
+      font-size: 16px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #convertBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    #convertBtn:hover {
+      background-color: #2980b9;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      transform-origin: center;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="converter-container">
+  
+    <h1>Temperature conversion Application</h1>
+    <label for="temperatureInput">Enter Temperature:</label>
+    <input type="text" id="temperatureInput" placeholder="Enter temperature" />
+
+    <label for="unitSelect">Select Unit:</label>
+    <select id="unitSelect">
+      <option value="celsius">Celsius</option>
+      <option value="fahrenheit">Fahrenheit</option>
+    </select>
+
+    <br/><br/>
+
+    <button id="convertBtn" onclick="convertTemperature()">Convert</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      var temperatureInput = document.getElementById("temperatureInput").value;
+      var unitSelect = document.getElementById("unitSelect");
+      var selectedUnit = unitSelect.options[unitSelect.selectedIndex].value;
+
+      if (isNaN(temperatureInput)) {
+        alert("Please enter a valid number for the temperature.");
+        return;
+      }
+
+      var convertedTemperature = (selectedUnit === "celsius") ? 
+                                  fahrenheitToCelsius(parseFloat(temperatureInput)) : 
+                                  celsiusToFahrenheit(parseFloat(temperatureInput));
+
+      var resultElement = document.getElementById("result");
+      resultElement.innerHTML = "Converted Temperature: " + convertedTemperature.toFixed(2) + " " + selectedUnit.toUpperCase();
+      
+      // Apply fadeIn animation
+      resultElement.style.transform = "scale(1)";
+      resultElement.style.animation = "fadeIn 0.5s ease-in-out";
+    }
+
+    function celsiusToFahrenheit(celsius) {
+      return (celsius * 9 / 5) + 32;
+    }
+
+    function fahrenheitToCelsius(fahrenheit) {
+      return (fahrenheit - 32) * 5 / 9;
+    }
+  </script>
+
+</body>
+</html>
